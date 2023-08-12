@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ArticlesModule } from './features/articles/articles.module';
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     ArticlesModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    MatIconModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

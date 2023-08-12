@@ -5,6 +5,8 @@ import { ArticlesComponent } from './articles.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { ArticleInfoComponent } from './article-info/article-info.component';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -17,7 +19,9 @@ import { ArticleInfoComponent } from './article-info/article-info.component';
   imports: [
     CommonModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatIconModule,
+    RouterModule
   ],
   exports: [
     ArticlesComponent,

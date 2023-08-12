@@ -1,15 +1,13 @@
-<mat-card>
-    <mat-card-header>
-      <div mat-card-avatar class="article-image"></div>
-      <mat-card-title>Article Title</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <p>
-        Article description goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Duis vehicula risus quis elit volutpat, nec vestibulum nunc hendrerit.
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>Read More</button>
-    </mat-card-actions>
+<mat-card class="article">
+  <img [src]="article.image_url" alt="Article Image" class="article-header" />
+  <mat-card-content class="article-content content">
+    <p class="content-date">{{ article.published_at | date: 'medium' }}</p>
+    <h3 class="content-title">{{ article.title }}</h3>
+    <p class="content-summary">{{ article.summary }}</p>
+  </mat-card-content>
+  <mat-card-actions class="article-actions">
+    <button mat-button routerLink="/article/{{ article.id }}">
+      Read More <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+  </mat-card-actions>
 </mat-card>
