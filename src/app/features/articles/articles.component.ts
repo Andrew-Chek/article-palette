@@ -1,27 +1,36 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ArticleApiService } from './article-api/article-api.service';
 import { Article } from 'src/app/shared/interfaces/Article';
 import { Subscription } from 'rxjs';
+import { PaginationService } from './pagination/pagination.service';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-articles',
   templateUrl: './articles.component.html',
   styleUrls: ['./articles.component.scss']
 })
-export class ArticlesComponent implements OnDestroy, OnInit {
+export class ArticlesComponent implements OnDestroy, OnInit, AfterViewInit {
+  @ViewChild('paginator') paginator!: MatPaginator;
   articles: Article[] = [];
   articlesCount: number = 0;
   subscriptions: Subscription[] = [];
-  currentPage: number = 1;
+  pageIndex: number = 1;
   pageCount!: number;
-  articlesPerPage: number = 10;
+  pageSize: number = 10;
   
 
-  constructor(private articleApiService: ArticleApiService) {}
+  constructor(private articleApiService: ArticleApiService, private paginationService: PaginationService) {}
 
-  ngOnInit() {
-    this.getArticlesWithPagination();
+  ngOnInit(): void {
+    this.pageSize = this.paginationService.getPageSize();
+    this.pageIndex = this.paginationService.getPageIndex();
     this.getCount();
+    this.getArticlesWithPagination();
+  }
+
+  ngAfterViewInit(): void {
+    this.paginator.pageSize = this.pageSize;
   }
 
   ngOnDestroy() {
@@ -29,8 +38,8 @@ export class ArticlesComponent implements OnDestroy, OnInit {
   }
 
   getArticlesWithPagination() {
-    const offset = (this.currentPage - 1) * this.articlesPerPage;
-    const subscription = this.articleApiService.getArticlesWithPagination(this.articlesPerPage, offset).subscribe(response => {
+    const offset = (this.pageIndex - 1) * this.pageSize;
+    const subscription = this.articleApiService.getArticlesWithPagination(this.pageSize, offset).subscribe(response => {
       this.articles = response.results;
     });
     this.subscriptions.push(subscription);
@@ -45,8 +54,9 @@ export class ArticlesComponent implements OnDestroy, OnInit {
   }
 
   onPageChange(event: any) {
-    this.currentPage = event.pageIndex;
-    this.articlesPerPage = event.pageSize;
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.paginationService.setPageSizeAndIndex(event.pageSize, event.pageIndex);
     this.getArticlesWithPagination();
   }
 }
