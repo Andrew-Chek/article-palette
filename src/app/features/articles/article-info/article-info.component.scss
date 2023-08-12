@@ -1,0 +1,32 @@
+.article-info {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0 auto;
+
+    &-card {
+        position: absolute;
+        top: 12%;
+        width: 92%;
+        height: 80%;
+        z-index: 100;
+        margin: 0 4%;
+    }
+    &-title {
+        text-align: center;
+        padding: 5px 0;
+    }
+    &-content-pgh, &-content-summary {
+        padding: 10px 0;
+    }
+    &-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+    &-back {
+        position: absolute;
+        bottom: 15px;
+        margin: 0 6%;
+    }
+}

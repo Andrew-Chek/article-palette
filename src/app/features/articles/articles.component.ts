@@ -49,11 +49,4 @@ export class ArticlesComponent implements OnDestroy, OnInit {
     this.articlesPerPage = event.pageSize;
     this.getArticlesWithPagination();
   }
-
-  onPageSizeChange(event: any) {
-    console.log("here changing")
-    this.articlesPerPage = event.pageSize;
-    this.currentPage = 0; // Reset to the first page when changing page size
-    this.getArticlesWithPagination();
-  }
 }

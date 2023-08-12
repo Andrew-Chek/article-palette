@@ -14,7 +14,7 @@ export class ArticleApiService {
   constructor(private http: HttpClient) {}
 
   getArticleById(id: number): Observable<Article> {
-    const url = `${this.baseUrl}/?id=${id}`;
+    const url = `${this.baseUrl}/${id}/`;
     return this.http.get<Article>(url);
   }
 
