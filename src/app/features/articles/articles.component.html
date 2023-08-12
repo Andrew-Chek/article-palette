@@ -1,3 +1,12 @@
+
 <div class="articles">
     <app-article *ngFor="let article of articles" [article]="article"></app-article>
 </div>
+<mat-paginator 
+    class="paginator"
+    [length]="articlesCount"
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 25, 50, 100]"
+    (page)="onPageChange($event)">
+    (page-size)="onPageSizeChange($event)"
+</mat-paginator>

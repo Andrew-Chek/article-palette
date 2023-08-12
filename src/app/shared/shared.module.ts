@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FilterInputComponent } from './filter-input/filter-input.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { ButtonComponent } from './button/button.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 
@@ -13,7 +14,13 @@ import { ButtonComponent } from './button/button.component';
     ButtonComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatPaginatorModule
+  ],
+  exports: [
+    FilterInputComponent,
+    PaginationComponent,
+    ButtonComponent,
   ]
 })
 export class SharedModule { }

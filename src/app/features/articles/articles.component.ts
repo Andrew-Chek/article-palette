@@ -10,13 +10,17 @@ import { Subscription } from 'rxjs';
 })
 export class ArticlesComponent implements OnDestroy, OnInit {
   articles: Article[] = [];
-  count: number = 0;
+  articlesCount: number = 0;
   subscriptions: Subscription[] = [];
+  currentPage: number = 1;
+  pageCount!: number;
+  articlesPerPage: number = 10;
+  
 
   constructor(private articleApiService: ArticleApiService) {}
 
   ngOnInit() {
-    this.getArticlesWithPagination(100, 0);
+    this.getArticlesWithPagination();
     this.getCount();
   }
 
@@ -24,8 +28,9 @@ export class ArticlesComponent implements OnDestroy, OnInit {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
-  getArticlesWithPagination(limit: number, offset: number) {
-    const subscription = this.articleApiService.getArticlesWithPagination(limit, offset).subscribe(response => {
+  getArticlesWithPagination() {
+    const offset = (this.currentPage - 1) * this.articlesPerPage;
+    const subscription = this.articleApiService.getArticlesWithPagination(this.articlesPerPage, offset).subscribe(response => {
       this.articles = response.results;
     });
     this.subscriptions.push(subscription);
@@ -33,8 +38,22 @@ export class ArticlesComponent implements OnDestroy, OnInit {
 
   getCount() {
     const subscribtion = this.articleApiService.getArticlesWithPagination(100, 0).subscribe(response => {
-      this.count = response.count;
+      this.articlesCount = response.count;
+      this.pageCount = Math.ceil(this.articlesCount / 100);
     });
     this.subscriptions.push(subscribtion);
+  }
+
+  onPageChange(event: any) {
+    this.currentPage = event.pageIndex;
+    this.articlesPerPage = event.pageSize;
+    this.getArticlesWithPagination();
+  }
+
+  onPageSizeChange(event: any) {
+    console.log("here changing")
+    this.articlesPerPage = event.pageSize;
+    this.currentPage = 0; // Reset to the first page when changing page size
+    this.getArticlesWithPagination();
   }
 }

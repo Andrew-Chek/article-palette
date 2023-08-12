@@ -1,1 +1,9 @@
-<p>article-info works!</p>
+<div class="article-info-container">
+    <mat-card class="article-card">
+        <img [src]="article.image_url" class="article-image" alt="Article Image" />
+        <mat-card-title>{{ article.title }}</mat-card-title>
+        <mat-card-content>
+            <p>{{ article.summary }}</p>
+        </mat-card-content>
+    </mat-card>
+</div>
