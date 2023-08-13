@@ -1,64 +1,70 @@
-<div class="article-info">
-    <img [src]="article.image_url" class="article-info-image" alt="Article Image" />
-    <mat-card class="article-info-card">
-        <mat-card-title class="article-info-title">{{ article.title }}</mat-card-title>
-        <mat-card-content class="article-info-content">
-            <p class="article-info-content-summary">{{ article.summary }}</p>
-            <p class="article-info-content-pgh">
-                Mock text for the article content. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Nullam scelerisque scelerisque velit, ut placerat neque laoreet at. Nulla tincidunt euismod felis,
-                vel cursus libero dictum nec. In sed risus at neque sodales dignissim id et nibh. Duis tincidunt dui nec dolor dignissim hendrerit.
-                Fusce dapibus ante vel mi sollicitudin, quis lacinia metus iaculis. In iaculis a leo id consequat.
-                Nulla facilisi. Pellentesque mattis, sapien at vestibulum dignissim, quam nisl varius tortor, vel
-                facilisis lorem turpis non erat. Mock text for the article content. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Nullam scelerisque scelerisque velit, ut placerat neque laoreet at. Nulla tincidunt euismod felis,
-                vel cursus libero dictum nec. Mock text for the article content. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Nullam scelerisque scelerisque velit, ut placerat neque laoreet at. Nulla tincidunt euismod felis,
-                vel cursus libero dictum nec. Mock text for the article content. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Nullam scelerisque scelerisque velit, ut placerat neque laoreet at. Nulla tincidunt euismod felis,
-                vel cursus libero dictum nec. Aliquam ac sem at libero feugiat interdum. Curabitur ut sem eu odio luctus interdum at at nisi.
-                Fusce nec justo vel erat auctor dictum. Aenean hendrerit ex nec felis mattis, nec consequat erat
-                lacinia. Sed ac lectus risus. Maecenas non nisl at libero hendrerit scelerisque non at nisi. Cras
-                quis libero justo. In sed risus at neque sodales dignissim id et nibh. Duis tincidunt dui nec dolor dignissim hendrerit.
-                Fusce dapibus ante vel mi sollicitudin, quis lacinia metus iaculis. In iaculis a leo id consequat.
-                Nulla facilisi. Pellentesque mattis, sapien at vestibulum dignissim, quam nisl varius tortor, vel
-                facilisis lorem turpis non erat.
-            </p>
-            <p class="article-info-content-pgh">
-                In sed risus at neque sodales dignissim id et nibh. Duis tincidunt dui nec dolor dignissim hendrerit.
-                Fusce dapibus ante vel mi sollicitudin, quis lacinia metus iaculis. In iaculis a leo id consequat.
-                Nulla facilisi. Pellentesque mattis, sapien at vestibulum dignissim, quam nisl varius tortor, vel
-                facilisis lorem turpis non erat. In sed risus at neque sodales dignissim id et nibh. Duis tincidunt dui nec dolor dignissim hendrerit.
-                Fusce dapibus ante vel mi sollicitudin, quis lacinia metus iaculis. In iaculis a leo id consequat.
-                Nulla facilisi. Pellentesque mattis, sapien at vestibulum dignissim, quam nisl varius tortor, vel
-                facilisis lorem turpis non erat.
-              </p>
-            <p class="article-info-content-pgh">
-                Aliquam ac sem at libero feugiat interdum. Curabitur ut sem eu odio luctus interdum at at nisi.
-                Fusce nec justo vel erat auctor dictum. Aenean hendrerit ex nec felis mattis, nec consequat erat
-                lacinia. Sed ac lectus risus. Maecenas non nisl at libero hendrerit scelerisque non at nisi. Cras
-                quis libero justo. In sed risus at neque sodales dignissim id et nibh. Duis tincidunt dui nec dolor dignissim hendrerit.
-                Fusce dapibus ante vel mi sollicitudin, quis lacinia metus iaculis. In iaculis a leo id consequat.
-                Nulla facilisi. Pellentesque mattis, sapien at vestibulum dignissim, quam nisl varius tortor, vel
-                facilisis lorem turpis non erat. Mock text for the article content. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Nullam scelerisque scelerisque velit, ut placerat neque laoreet at. Nulla tincidunt euismod felis,
-                vel cursus libero dictum nec. Mock text for the article content. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Nullam scelerisque scelerisque velit, ut placerat neque laoreet at. Nulla tincidunt euismod felis,
-                vel cursus libero dictum nec. Aliquam ac sem at libero feugiat interdum. Curabitur ut sem eu odio luctus interdum at at nisi.
-                Fusce nec justo vel erat auctor dictum. Aenean hendrerit ex nec felis mattis, nec consequat erat
-                lacinia. Sed ac lectus risus. Maecenas non nisl at libero hendrerit scelerisque non at nisi. Cras
-                quis libero justo. In sed risus at neque sodales dignissim id et nibh. Duis tincidunt dui nec dolor dignissim hendrerit.
-                Fusce dapibus ante vel mi sollicitudin, quis lacinia metus iaculis. In iaculis a leo id consequat.
-                Nulla facilisi. Pellentesque mattis, sapien at vestibulum dignissim, quam nisl varius tortor, vel
-                facilisis lorem turpis non erat.
-            </p>
-            <p class="article-info-content-pgh">
-                Sorry for adding mock text, I didn't find out the way to add a real text from every article, 
-                provided api does not contain such opportunity.
-            </p>
-        </mat-card-content>
-        <button mat-button class="article-info-back" (click)="navigateToHome()">
-            <mat-icon>keyboard_arrow_left</mat-icon> Back to home page
-        </button>
-    </mat-card>
-</div>
+<ng-container *ngIf="loading; else articlePage">
+    <app-loader></app-loader>
+</ng-container>
+
+<ng-template #articlePage>
+    <div class="article-info">
+        <img [src]="article.image_url" class="article-info-image" alt="Article Image" />
+        <mat-card class="article-info-card">
+            <mat-card-title class="article-info-title">{{ article.title }}</mat-card-title>
+            <mat-card-content class="article-info-content">
+                <p class="article-info-content-summary">{{ article.summary }}</p>
+                <p class="article-info-content-pgh">
+                    Mock text for the article content. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nullam scelerisque scelerisque velit, ut placerat neque laoreet at. Nulla tincidunt euismod felis,
+                    vel cursus libero dictum nec. In sed risus at neque sodales dignissim id et nibh. Duis tincidunt dui nec dolor dignissim hendrerit.
+                    Fusce dapibus ante vel mi sollicitudin, quis lacinia metus iaculis. In iaculis a leo id consequat.
+                    Nulla facilisi. Pellentesque mattis, sapien at vestibulum dignissim, quam nisl varius tortor, vel
+                    facilisis lorem turpis non erat. Mock text for the article content. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nullam scelerisque scelerisque velit, ut placerat neque laoreet at. Nulla tincidunt euismod felis,
+                    vel cursus libero dictum nec. Mock text for the article content. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nullam scelerisque scelerisque velit, ut placerat neque laoreet at. Nulla tincidunt euismod felis,
+                    vel cursus libero dictum nec. Mock text for the article content. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nullam scelerisque scelerisque velit, ut placerat neque laoreet at. Nulla tincidunt euismod felis,
+                    vel cursus libero dictum nec. Aliquam ac sem at libero feugiat interdum. Curabitur ut sem eu odio luctus interdum at at nisi.
+                    Fusce nec justo vel erat auctor dictum. Aenean hendrerit ex nec felis mattis, nec consequat erat
+                    lacinia. Sed ac lectus risus. Maecenas non nisl at libero hendrerit scelerisque non at nisi. Cras
+                    quis libero justo. In sed risus at neque sodales dignissim id et nibh. Duis tincidunt dui nec dolor dignissim hendrerit.
+                    Fusce dapibus ante vel mi sollicitudin, quis lacinia metus iaculis. In iaculis a leo id consequat.
+                    Nulla facilisi. Pellentesque mattis, sapien at vestibulum dignissim, quam nisl varius tortor, vel
+                    facilisis lorem turpis non erat.
+                </p>
+                <p class="article-info-content-pgh">
+                    In sed risus at neque sodales dignissim id et nibh. Duis tincidunt dui nec dolor dignissim hendrerit.
+                    Fusce dapibus ante vel mi sollicitudin, quis lacinia metus iaculis. In iaculis a leo id consequat.
+                    Nulla facilisi. Pellentesque mattis, sapien at vestibulum dignissim, quam nisl varius tortor, vel
+                    facilisis lorem turpis non erat. In sed risus at neque sodales dignissim id et nibh. Duis tincidunt dui nec dolor dignissim hendrerit.
+                    Fusce dapibus ante vel mi sollicitudin, quis lacinia metus iaculis. In iaculis a leo id consequat.
+                    Nulla facilisi. Pellentesque mattis, sapien at vestibulum dignissim, quam nisl varius tortor, vel
+                    facilisis lorem turpis non erat.
+                  </p>
+                <p class="article-info-content-pgh">
+                    Aliquam ac sem at libero feugiat interdum. Curabitur ut sem eu odio luctus interdum at at nisi.
+                    Fusce nec justo vel erat auctor dictum. Aenean hendrerit ex nec felis mattis, nec consequat erat
+                    lacinia. Sed ac lectus risus. Maecenas non nisl at libero hendrerit scelerisque non at nisi. Cras
+                    quis libero justo. In sed risus at neque sodales dignissim id et nibh. Duis tincidunt dui nec dolor dignissim hendrerit.
+                    Fusce dapibus ante vel mi sollicitudin, quis lacinia metus iaculis. In iaculis a leo id consequat.
+                    Nulla facilisi. Pellentesque mattis, sapien at vestibulum dignissim, quam nisl varius tortor, vel
+                    facilisis lorem turpis non erat. Mock text for the article content. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nullam scelerisque scelerisque velit, ut placerat neque laoreet at. Nulla tincidunt euismod felis,
+                    vel cursus libero dictum nec. Mock text for the article content. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nullam scelerisque scelerisque velit, ut placerat neque laoreet at. Nulla tincidunt euismod felis,
+                    vel cursus libero dictum nec. Aliquam ac sem at libero feugiat interdum. Curabitur ut sem eu odio luctus interdum at at nisi.
+                    Fusce nec justo vel erat auctor dictum. Aenean hendrerit ex nec felis mattis, nec consequat erat
+                    lacinia. Sed ac lectus risus. Maecenas non nisl at libero hendrerit scelerisque non at nisi. Cras
+                    quis libero justo. In sed risus at neque sodales dignissim id et nibh. Duis tincidunt dui nec dolor dignissim hendrerit.
+                    Fusce dapibus ante vel mi sollicitudin, quis lacinia metus iaculis. In iaculis a leo id consequat.
+                    Nulla facilisi. Pellentesque mattis, sapien at vestibulum dignissim, quam nisl varius tortor, vel
+                    facilisis lorem turpis non erat.
+                </p>
+                <p class="article-info-content-pgh">
+                    Sorry for adding mock text, I didn't find out the way to add a real text from every article, 
+                    provided api does not contain such opportunity.
+                </p>
+            </mat-card-content>
+            <button mat-button class="article-info-back" (click)="navigateToHome()">
+                <mat-icon>keyboard_arrow_left</mat-icon> Back to home page
+            </button>
+        </mat-card>
+    </div>
+</ng-template>

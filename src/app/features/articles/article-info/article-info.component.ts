@@ -10,6 +10,7 @@ import { ArticleApiService } from '../article-api/article-api.service';
 })
 export class ArticleInfoComponent {
   article!: Article;
+  loading: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -18,6 +19,7 @@ export class ArticleInfoComponent {
   ) {}
 
   ngOnInit() {
+    this.loading = true;
     this.route.params.subscribe(params => {
       const articleId = params['id'];
       this.getArticleDetails(articleId);
@@ -27,6 +29,7 @@ export class ArticleInfoComponent {
   getArticleDetails(articleId: number) {
     this.articleApiService.getArticleById(articleId).subscribe(response => {
       this.article = response;
+      this.loading = false;
     });
   }
 
