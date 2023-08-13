@@ -10,27 +10,24 @@ import { MatPaginator } from '@angular/material/paginator';
   templateUrl: './articles.component.html',
   styleUrls: ['./articles.component.scss']
 })
-export class ArticlesComponent implements OnDestroy, OnInit, AfterViewInit {
+export class ArticlesComponent implements OnDestroy, OnInit {
   @ViewChild('paginator') paginator!: MatPaginator;
   articles: Article[] = [];
   articlesCount: number = 0;
   subscriptions: Subscription[] = [];
-  pageIndex: number = 1;
+  pageIndex: number = 0;
   pageCount!: number;
   pageSize: number = 10;
-  
+  loading: boolean = false;
 
   constructor(private articleApiService: ArticleApiService, private paginationService: PaginationService) {}
 
   ngOnInit(): void {
+    this.loading = true;
     this.pageSize = this.paginationService.getPageSize();
     this.pageIndex = this.paginationService.getPageIndex();
     this.getCount();
     this.getArticlesWithPagination();
-  }
-
-  ngAfterViewInit(): void {
-    this.paginator.pageSize = this.pageSize;
   }
 
   ngOnDestroy() {
@@ -38,9 +35,10 @@ export class ArticlesComponent implements OnDestroy, OnInit, AfterViewInit {
   }
 
   getArticlesWithPagination() {
-    const offset = (this.pageIndex - 1) * this.pageSize;
+    const offset = this.pageIndex * this.pageSize;
     const subscription = this.articleApiService.getArticlesWithPagination(this.pageSize, offset).subscribe(response => {
       this.articles = response.results;
+      this.loading = false;
     });
     this.subscriptions.push(subscription);
   }
@@ -56,7 +54,7 @@ export class ArticlesComponent implements OnDestroy, OnInit, AfterViewInit {
   onPageChange(event: any) {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.paginationService.setPageSizeAndIndex(event.pageSize, event.pageIndex);
+    this.paginationService.setPageSizeAndIndex(this.pageSize, this.pageIndex);
     this.getArticlesWithPagination();
   }
 }

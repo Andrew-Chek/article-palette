@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class PaginationService {
 
   pageSize: number = 10;
-  pageIndex: number = 1;
+  pageIndex: number = 0;
 
   constructor() {}
 

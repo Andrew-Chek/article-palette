@@ -1,13 +1,17 @@
-
-<div class="articles">
-    <app-article *ngFor="let article of articles" [article]="article"></app-article>
-</div>
-<mat-paginator 
-    #paginator
-    class="paginator"
-    [length]="articlesCount"
-    [pageSize]="10"
-    [pageSizeOptions]="[5, 10, 25, 50, 100]"
-    (page)="onPageChange($event)">
-    (page-size)="onPageSizeChange($event)"
-</mat-paginator>
+<ng-container *ngIf="loading; else articlesPage">
+    <app-loader></app-loader>
+</ng-container>
+  
+<ng-template #articlesPage>
+    <div class="articles">
+        <app-article *ngFor="let article of articles" [article]="article"></app-article>
+    </div>
+    <mat-paginator 
+        #paginator
+        class="paginator"
+        [length]="articlesCount"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 25, 50, 100]"
+        (page)="onPageChange($event)">
+    </mat-paginator>
+</ng-template>
