@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-filter-input',
@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./filter-input.component.scss']
 })
 export class FilterInputComponent {
+  @Output() keywordChange = new EventEmitter<string>();
+  searchKeyword: string = '';
 
+  onInputChange() {
+    this.keywordChange.emit(this.searchKeyword);
+  }
 }

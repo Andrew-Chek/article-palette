@@ -5,6 +5,9 @@ import { ButtonComponent } from './button/button.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoaderComponent } from './loader/loader.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -16,7 +19,10 @@ import { LoaderComponent } from './loader/loader.component';
   imports: [
     CommonModule,
     MatPaginatorModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatFormFieldModule,
+    MatIconModule,
+    FormsModule
   ],
   exports: [
     FilterInputComponent,

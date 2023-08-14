@@ -4,9 +4,20 @@
     gap: 20px;
     padding: 0 35px;
 }
+
 .paginator {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 10px 0;
+}
+
+.results {
+    padding: 15px 0;
+    margin: 0 35px 30px 35px;
+    border-bottom: 1px solid #777;
+    &-info {
+        margin: 0;
+        font-weight: 600;
+    }
 }

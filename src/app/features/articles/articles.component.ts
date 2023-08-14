@@ -13,6 +13,8 @@ import { MatPaginator } from '@angular/material/paginator';
 export class ArticlesComponent implements OnDestroy, OnInit {
   @ViewChild('paginator') paginator!: MatPaginator;
   articles: Article[] = [];
+  originalArticles: Article[] = [];
+  filterKeywords: string[] = [];
   articlesCount: number = 0;
   subscriptions: Subscription[] = [];
   pageIndex: number = 0;
@@ -38,9 +40,11 @@ export class ArticlesComponent implements OnDestroy, OnInit {
     const offset = this.pageIndex * this.pageSize;
     const subscription = this.articleApiService.getArticlesWithPagination(this.pageSize, offset).subscribe(response => {
       this.articles = response.results;
+      this.originalArticles = this.articles;
       this.loading = false;
     });
     this.subscriptions.push(subscription);
+    return this.articles;
   }
 
   getCount() {
@@ -56,5 +60,43 @@ export class ArticlesComponent implements OnDestroy, OnInit {
     this.pageSize = event.pageSize;
     this.paginationService.setPageSizeAndIndex(this.pageSize, this.pageIndex);
     this.getArticlesWithPagination();
+  }
+
+  filterArticles(keyword: string): void {
+    this.filterKeywords = keyword.trim().toLowerCase().split(' ');
+
+    if (this.filterKeywords.length === 0) {
+      this.articles = this.originalArticles;
+      return;
+    }
+
+    const filteredArticles = this.originalArticles.filter(article => {
+      const nameMatch = this.matchKeywords(article.title);
+      const descriptionMatch = this.matchKeywords(article.summary);
+
+      return nameMatch > 0 || descriptionMatch > 0;
+    });
+
+    this.articles = this.sortArticlesByPriority(filteredArticles, this.filterKeywords);
+  }
+  
+  matchKeywords(text: string): number {
+    const regex = new RegExp(this.filterKeywords.join('|'), 'gi');
+    const matches = text.match(regex);
+    return matches ? matches.length : 0;
+  }
+
+  sortArticlesByPriority(articles: Article[], keywords: string[]): Article[] {
+    return articles.sort((a, b) => {
+      const aNameMatches = keywords.filter(keyword => a.title.toLowerCase().includes(keyword)).length;
+      const bNameMatches = keywords.filter(keyword => b.title.toLowerCase().includes(keyword)).length;
+      const aDescriptionMatches = keywords.filter(keyword => a.summary.toLowerCase().includes(keyword)).length;
+      const bDescriptionMatches = keywords.filter(keyword => b.summary.toLowerCase().includes(keyword)).length;
+  
+      const aPriority = aNameMatches * 2 + aDescriptionMatches;
+      const bPriority = bNameMatches * 2 + bDescriptionMatches;
+  
+      return bPriority - aPriority;
+    });
   }
 }

@@ -34,6 +34,6 @@ export class ArticleInfoComponent {
   }
 
   navigateToHome() {
-    this.router.navigate(['/']); // Navigate to the home page
+    this.router.navigate(['/']);
   }
 }

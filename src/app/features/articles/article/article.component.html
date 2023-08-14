@@ -2,8 +2,8 @@
   <img [src]="article.image_url" alt="Article Image" class="article-header" />
   <mat-card-content class="article-content content">
     <p class="content-date">{{ article.published_at | date: 'medium' }}</p>
-    <h3 class="content-title">{{ article.title }}</h3>
-    <p class="content-summary">{{ article.summary }}</p>
+    <h3 class="content-title" [innerHTML]="highlightKeywords(article.title)">{{ article.title }}</h3>
+    <p class="content-summary" [innerHTML]="highlightKeywords(article.summary)">{{ article.summary }}</p>
   </mat-card-content>
   <mat-card-actions class="article-actions">
     <button mat-button routerLink="/article/{{ article.id }}">
